@@ -99,27 +99,7 @@ http:
       binary-mode: true
       timeout: 30
       max-size: 0
-    # ～ BiliBili_哔哩哔哩_启动时开启直连模式[自行启用]@ddgksf2013
-    - match: ^https?:\/\/app\.bilibili\.com\/x\/resource\/domain
-      name: bilibili_startup_direct.js
-      type: response
-      require-body: true
-      timeout: 30
-      max-size: 0
-    # ～ BiliBili_哔哩哔哩_繁体CC字幕转中文简体[自行启用]@ddgksf2013
-    - match: ^https?:\/\/i.\.hdslb\.com\/bfs\/subtitle\/.+\.json$
-      name: bilibili_cc.js
-      type: response
-      require-body: true
-      timeout: 30
-      max-size: 0
-    # ～ BiliBili_哔哩哔哩_去除统一设置的皮肤@ddgksf2013
-    - match: ^https?:\/\/app\.bilibili\.com\/x\/resource\/show\/skin\?
-      name: bilibili_json.js
-      type: response
-      require-body: true
-      timeout: 30
-      max-size: 0
+
   mitm:
     - "app.bilibili.com"
     - "api.live.bilibili.com"
@@ -138,10 +118,4 @@ script-providers:
     interval: 86400
   bilibili_proto.js:
     url: https://github.com/ddgksf2013/Scripts/raw/master/bilibili_proto.js
-    interval: 86400
-  bilibili_startup_direct.js:
-    url: https://github.com/ddgksf2013/Scripts/raw/master/bilibili_startup_direct.js
-    interval: 86400
-  bilibili_cc.js:
-    url: https://github.com/ddgksf2013/Scripts/raw/master/bilibili_cc.js
     interval: 86400
