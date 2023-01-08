@@ -1,5 +1,5 @@
-name: weiboAd
-desc: weiboAd
+name: WeiBo
+desc: WeiBo
 http:
   rewrite:
     # > 微博_Spotlight@ddgksf2013
