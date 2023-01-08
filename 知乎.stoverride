@@ -1,0 +1,20 @@
+#SUBSCRIBED https://raw.githubusercontent.com/Xyy-y/ylgy/main/zhihu.stoverride
+name: zhihu去广告
+desc: 知乎去广告
+
+http:
+  mitm:
+    - 'api.zhihu.com'
+    - 'www.zhihu.com'
+    - 'appcloud2.zhihu.com'
+  script:
+    - match: ^https:\/\/(appcloud2\.zhihu\.com\/v3\/config$|www\.zhihu\.com\/api\/v4\/(answers\/\d+\/recommendations|articles\/\d+\/recommendation)|api\.zhihu\.com\/(topstory\/recommend|commercial_api\/(real_time_launch_v2|app_float_layer$)|questions\/\d+\/feeds\?|v4\/questions\/\d+\/answers\?))
+      name: zhihu
+      type: response
+      require-body: true
+      timeout: 10
+      
+script-providers:
+  zhihu:
+    url: https://raw.githubusercontent.com/app2smile/rules/master/js/zhihu.js
+    interval: 86400
