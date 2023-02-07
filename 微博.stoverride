@@ -2,15 +2,28 @@ name: WeiBo
 desc: WeiBo
 http:
   rewrite:
+    # > 微博_去除底部超话栏表层浮icon及tips@ddgksf2013
+    - ^https?:\/\/api\.weibo\.cn\/\d\/!\/huati\/discovery_home_bottom_getdotinfo - reject-dict
+    # > 微博_屏蔽首页左上角每日的弹窗tips@ddgksf2013
+    - ^https?:\/\/m?api\.weibo\.c(n|om)\/\d/push/daily - reject-dict
+    # > 微博_应用内弹窗广告@ddgksf2013
+    - ^https?:\/\/(preload-click|preload-impression)\.uve\.weibo\.com\/(interface\/wbpullad\/wbpullad_click\.php|wbapplua\/get_wbpullad_log\.lua) - reject
+    # > 微博_屏蔽sdkconfig请求@ddgksf2013
+    - ^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkconfig\.php - reject
     # > 微博_Spotlight@ddgksf2013
     - ^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/hot\/hours_spotlight - reject-dict
     # > 微博国际版_屏蔽hotsearch@ddgksf2013
     - ^https?:\/\/weibointl\.api\.weibo\.c(n|om)\/portal\.php\?a=hot_search_users - reject-dict
     # > 微博国际版_屏蔽热推荐@ddgksf2013
     - ^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/ad\/weibointl\? - reject-dict
-    # > 微博国际版_屏蔽search_suggest@ddgksf2013
-#    -  ^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/page\/get_search_suggest - reject-dict
   script:
+    # > 微博_屏蔽发现页面搜索框热词@ddgksf2013
+    - match: ^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/\w{5}\/cardlist
+      name: weibo_json.js
+      type: response
+      require-body: true
+      timeout: 30
+      max-size: 0
     # > 微博_自定义tab皮肤@zmqcherish
     - match: ^https://api.weibo.cn/2/!/client/light_skin
       name: weibo_json.js
