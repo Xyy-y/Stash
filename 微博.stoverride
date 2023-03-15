@@ -2,6 +2,8 @@ name: WeiBo
 desc: WeiBo
 http:
   rewrite:
+    # > 微博_每日一次的开屏广告请求@ddgksf2013
+    - ^https?:\/\/boot\.biz\.weibo\.com\/v1\/ad\/realtime - reject-200
     # > 微博_去除底部超话栏表层浮icon及tips@ddgksf2013
     - ^https?:\/\/api\.weibo\.cn\/\d\/!\/huati\/discovery_home_bottom_getdotinfo - reject-dict
     # > 微博_屏蔽首页左上角每日的弹窗tips@ddgksf2013
@@ -17,6 +19,20 @@ http:
     # > 微博国际版_屏蔽热推荐@ddgksf2013
     - ^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/ad\/weibointl\? - reject-dict
   script:
+    # > 微博_未登陆状态下首页信息流处理@ddgksf2013
+    - match: ^https?:\/\/api\.weibo\.cn\/\d\/\w{5}\/(statuses_unread_hot_timeline|timeline)
+      name: weibo_json.js
+      type: response
+      require-body: true
+      timeout: 30
+      max-size: 0
+    # > 微博_视频信息处理@ddgksf2013
+    - match: ^https?:\/\/api\.weibo\.cn\/\d\/video\/tiny_stream_mid_detail
+      name: weibo_json.js
+      type: response
+      require-body: true
+      timeout: 30
+      max-size: 0
     # > 微博_屏蔽发现页面搜索框热词@ddgksf2013
     - match: ^https?:\/\/m?api\.weibo\.c(n|om)\/\d\/\w{5}\/cardlist
       name: weibo_json.js
@@ -129,9 +145,12 @@ http:
       timeout: 30
       max-size: 0
   mitm:
-    - "*api.weibo*"
-    - "*uve.weibo.com"
+    - "api.weibo.*"
+    - "*.api.weibo.*"
+    - "mapi.weibo.*"
+    - "*.uve.weibo.com"
     - "new.vip.weibo.cn"
+    - "boot.biz.weibo.com"
 
 script-providers:
   weibo_json.js:
