@@ -3,7 +3,7 @@ desc: WeiBo
 http:
   rewrite:
     # > 微博_每日一次的开屏广告请求@ddgksf2013
-    - ^https?:\/\/boot\.biz\.weibo\.com\/v1\/ad\/realtime - reject-200
+    - ^https?:\/\/boot.*weibo\.com\/v\d\/ad\/realtime - reject-200
     # > 微博_去除底部超话栏表层浮icon及tips@ddgksf2013
     - ^https?:\/\/api\.weibo\.cn\/\d\/!\/huati\/discovery_home_bottom_getdotinfo - reject-dict
     # > 微博_屏蔽首页左上角每日的弹窗tips@ddgksf2013
